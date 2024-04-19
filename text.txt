@@ -1,13 +1,86 @@
-Buck0134 and others added 4 commits 4 months ago
-Edited Minor Issue
- 
-904adc9
-@yiminzhaF2023
-Merge branch 'iter5-main' of https://github.com/cmusv-fse/18652-fse-f… 
- 
-9a7dc37
-@yiminzhaF2023
-eslint fix
- 
-39aa584
-Minor Fix
+
+
+> server@0.0.1 test
+> jest --coverage
+
+PASS test/incident/incident.router.spec.ts (14.858 s)
+PASS test/channel/channel.router.spec.ts
+  ● Console
+
+    console.log
+      user being added
+
+      at log (src/routers/channel.router.ts:248:15)
+
+    console.log
+      user being added
+
+      at log (src/routers/channel.router.ts:248:15)
+
+    console.log
+      response_alert:  {
+        channel: {
+          id: 'b049b844-b6a6-4140-81ee-88be6f08c51f',
+          isGroup: true,
+          isSystemDefinedGroup: false,
+          name: 'fawf',
+          description: null,
+          state: 'Active',
+          users: [ [Object], [Object] ]
+        },
+        sender: {
+          id: 'f1bcc2ea-d486-4f0b-8930-887aecafb16c',
+          username: 'some-username1',
+          role: 'Police',
+          lastIncidentAcknowledgedAt: null,
+          vehicleAssignedTo: null,
+          vehicleName: null,
+          vehicleAssignedToSince: null,
+          incidentAssignedTo: null,
+          isOnline: false
+        },
+        alertType: 'ALL CLEAR',
+        unacknowledgedUsers: [
+          {
+            id: 'dee04358-9e95-4189-8378-f7c66b923013',
+            username: 'some-username2',
+            role: 'Police',
+            lastIncidentAcknowledgedAt: null,
+            vehicleAssignedTo: null,
+            vehicleName: null,
+            vehicleAssignedToSince: null,
+            incidentAssignedTo: null,
+            isOnline: false
+          }
+        ],
+        id: '30f757a2-4c8f-446a-8af1-687eee5b77ed',
+        createdAt: '2024-04-19T00:02:51.000Z',
+        updatedAt: '2024-04-19T00:02:51.000Z'
+      }
+
+      at Object.<anonymous> (test/channel/channel.router.spec.ts:448:13)
+
+    console.log
+      alert:  {
+        id: '30f757a2-4c8f-446a-8af1-687eee5b77ed',
+        createdAt: '2024-04-19T00:02:51.000Z',
+        updatedAt: '2024-04-19T00:02:51.000Z',
+        type: 'AlertMessage',
+        alertType: 'ALL CLEAR',
+        sender: {
+          id: 'f1bcc2ea-d486-4f0b-8930-887aecafb16c',
+          username: 'some-username1',
+          role: 'Police',
+          lastIncidentAcknowledgedAt: null,
+          vehicleAssignedTo: null,
+          vehicleN
+Post job cleanup.
+/usr/bin/git version
+git version 2.43.2
+Temporarily overriding HOME='/home/runner/work/_temp/889f63d6-d0e1-41b8-9d0e-dcd90b0b4e78' before making global git config changes
+Adding repository directory to the temporary git global config as a safe directory
+/usr/bin/git config --global --add safe.directory /home/runner/work/s24-sem-incident-response-product/s24-sem-incident-response-product
+/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+fatal: No url found for submodule path 'sigridci' in .gitmodules
+Warning: The process '/usr/bin/git' failed with exit code 128
