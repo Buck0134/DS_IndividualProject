@@ -37,7 +37,6 @@ from flask import Flask, request, jsonify
 from joblib import load
 import pandas as pd
 import pickle
-from textProcessor.textProcessor import TextPreprocessor 
 from preprocessing.preprocess import clean_text
 import csv
 import hashlib
@@ -108,4 +107,4 @@ def predict():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, use_reloader=False)
