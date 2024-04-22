@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Send POST request to API using curl
         env:
-          API_URL: "https://ds-individualproject.onrender.com/predict" 
+          API_URL: "https://ds-individualproject.onrender.com/api/predict" 
         run: |
           curl -X POST $API_URL \
           -H "Content-Type: application/json" \

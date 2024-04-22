@@ -9,6 +9,7 @@ from joblib import load
 import pandas as pd
 import pickle
 from preprocessing.preprocess import clean_text
+from textProcessor.textProcessor import TextPreprocessor
 import csv
 import hashlib
 import os
@@ -72,12 +73,14 @@ def predict():
     df = pd.DataFrame({'comment': [comment_text]})
     df['comment'] = df['comment'].apply(clean_text)
 
-    # Transform the text to a bag-of-words matrix and apply TF-IDF
-    bow_features = bow_vectorizer.transform(df['comment'])
-    tfidf_features = tfidf_transformer.transform(bow_features)
+    preprocessor = TextPreprocessor() 
+    features = preprocessor.apply_vectorization(df, 'comment', method='embeddings')
+    # # Transform the text to a bag-of-words matrix and apply TF-IDF
+    # bow_features = bow_vectorizer.transform(df['comment'])
+    # tfidf_features = tfidf_transformer.transform(bow_features)
 
     # Predict using the loaded model
-    predictions = production_model.predict(tfidf_features)
+    predictions = production_model.predict(features)
 
     # Return predictions along with username and prediction result
     return jsonify({'username': username, 'predictions': predictions.tolist()})
@@ -94,7 +97,11 @@ def pr_comments():
     token = data['token']
 
     comments = get_comments(repo, pr_number, token)
-    filtered_comments = [comment for comment in comments if comment['user']['type'] != 'Bot']
+    filtered_comments = [{
+        'username': comment['user']['login'],
+        'comment': comment['body'],
+        'label': 'Bot'
+    } for comment in comments if comment['user']['login'] == 'github-actions[bot]']
 
     return jsonify(filtered_comments)
 
@@ -113,5 +120,5 @@ if __name__ == '__main__':
     # Downlading punkt and stopwords resources. 
     nltk.download('punkt')
     nltk.download('stopwords')
-    app.run(debug=True, host='0.0.0.0', port=5001, use_reloader=False)
+    app.run(debug=True, host='0.0.0.0', port=5001)
 
