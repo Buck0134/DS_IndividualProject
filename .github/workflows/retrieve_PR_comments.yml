@@ -1,0 +1,12 @@
+name: Retrieve PR Comments
+on: [push]
+
+jobs:
+  get-comments:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Retrieve Comments
+        run: |
+          curl -X POST -H "Content-Type: application/json" \
+          -d '{"repo":"$GITHUB_REPOSITORY", "pr_number":"123", "token":"${{ secrets.GITHUB_TOKEN }}"}' \
+          https://ds-individualproject.onrender.com/pr_comments
