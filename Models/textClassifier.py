@@ -31,17 +31,17 @@ class TextClassifier:
     def get_model(self):
         return self.model
 
-    def check_for_overfitting(self):
+    def check_for_overfitting(self, X_train, y_train, X_test, y_test):
         """
         Evaluates the model for signs of overfitting by comparing F1 scores on the training and test sets.
         """
         # Predict on training and test data
-        y_train_pred = self.model.predict(self.X_train)
-        y_test_pred = self.model.predict(self.X_test)
+        y_train_pred = self.model.predict(X_train)
+        y_test_pred = self.model.predict(X_test)
 
         # Calculate F1 score for training and test sets
-        f1_train = f1_score(self.y_train, y_train_pred, average='macro')
-        f1_test = f1_score(self.y_test, y_test_pred, average='macro')
+        f1_train = f1_score(y_train, y_train_pred, average='binary', pos_label = 'Human')
+        f1_test = f1_score(y_test, y_test_pred, average='binary', pos_label = 'Human')
 
         print(f"Training F1 Score: {f1_train}")
         print(f"Test F1 Score: {f1_test}")
