@@ -10,5 +10,5 @@ jobs:
       - name: Retrieve Comments
         run: |
           curl -X POST -H "Content-Type: application/json" \
-          -d '{"repo":"$GITHUB_REPOSITORY", "pr_number":"123", "token":"${{ secrets.GITHUB_TOKEN }}"}' \
+          -d '{"repo":"${{ github.repository }}", "pr_number":"${{ github.event.pull_request.number }}", "token":"${{ secrets.GITHUB_TOKEN }}"}' \
           https://ds-individualproject.onrender.com/pr_comments
