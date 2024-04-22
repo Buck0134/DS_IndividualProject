@@ -63,7 +63,7 @@ with open('count_vectorizer.pkl', 'rb') as file:
 with open('tfidf_transformer.pkl', 'rb') as file:
     tfidf_transformer = pickle.load(file)
 
-@app.route('/predict', methods=['POST'])
+@app.route('/api/predict', methods=['POST'])
 def predict():
     data = request.get_json(force=True)
     username = data['username'] 
