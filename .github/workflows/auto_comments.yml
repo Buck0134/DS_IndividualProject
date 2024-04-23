@@ -13,5 +13,5 @@ jobs:
       - name: Comment PR
         uses: mshick/add-pr-comment@v1
         with:
-          message: "Thank you for your pull request!"
+          message: "Thank you for your pull request! April 22"
           repo-token: ${{ secrets.GITHUB_TOKEN }}

@@ -11,4 +11,4 @@ jobs:
         run: |
           curl -X POST -H "Content-Type: application/json" \
           -d '{"repo":"${{ github.repository }}", "pr_number":"${{ github.event.pull_request.number }}", "token":"${{ secrets.GITHUB_TOKEN }}"}' \
-          https://ds-individualproject.onrender.com/pr_comments
+          https://ds-individualproject.onrender.com/api/pr_comments
