@@ -13,6 +13,19 @@ from textProcessor.textProcessor import TextPreprocessor
 import csv
 import hashlib
 import os
+import boto3
+import json
+from datetime import datetime
+
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Access your variables
+aws_access_key_id = os.getenv('AWS_ACCESS_KEY_ID')
+aws_secret_access_key = os.getenv('AWS_SECRET_ACCESS_KEY')
 
 def clean_text(text):
     # Decode bytes to string if necessary
@@ -103,7 +116,24 @@ def pr_comments():
         'label': 'Bot'
     } for comment in comments if comment['user']['login'] == 'github-actions[bot]']
 
+    save_comments_to_s3(filtered_comments)
     return jsonify(filtered_comments)
+
+def save_comments_to_s3(filtered_comments):
+    # Initialize a boto3 client
+    s3 = boto3.client(
+        's3',
+        aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
+        aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY')
+    )
+    bucket_name = 'dsindividual'
+    # Create a unique name for the file to avoid overwriting existing data
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    file_name = f'filtered_comments_{timestamp}.json'
+    # Convert the Python dictionary into a JSON string
+    comments_json = json.dumps(filtered_comments, indent=4)
+    # Upload the JSON to S3
+    s3.put_object(Bucket=bucket_name, Key=file_name, Body=comments_json)
 
 def get_comments(repo, pr_number, token):
     GITHUB_API_URL = 'https://api.github.com'
