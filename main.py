@@ -50,6 +50,7 @@ df = shuffle(df, random_state=42)
 # print(df['comment'].head(10))
 
 vect_method = ['tfidf', 'bow', 'embeddings']
+vect_method = ['embeddings']
 
 for each_vect in vect_method: 
     print(f'\n\nVectorized by {each_vect}')
@@ -74,10 +75,13 @@ for each_vect in vect_method:
 
     # Training data ready
     model_list = ['random_forest', 'logistic_regression', 'svm']
+    model_list = ['random_forest']
     for model in model_list:
         print(f"Training for {model}")
         Classifier = TextClassifier(model_type=model)
         Classifier.train(X_train, y_train)
+        with open('random_forest_model.pkl', 'wb') as file:
+            pickle.dump(Classifier.get_model(), file)
         # print(f"Model Result")
         # Classifier.evaluate(X_test, y_test)
         # Classifier.check_for_overfitting(X_train, y_train, X_test, y_test)

@@ -66,7 +66,7 @@ def index():
     return "Welcome to the application!"
 
 # Load the Random Forest model
-production_model = load('service/random_forest_model.joblib')
+production_model = load('random_forest_model.pkl')
 
 # Load the CountVectorizer
 with open('count_vectorizer.pkl', 'rb') as file:
@@ -79,9 +79,10 @@ with open('tfidf_transformer.pkl', 'rb') as file:
 @app.route('/api/predict', methods=['POST'])
 def predict():
     data = request.get_json(force=True)
-    username = data['username'] 
-    comment_text = data['comment']
-
+    username = data.get('username')
+    comment_text = data.get('comment')
+    if not all([comment_text is not None, username is not None]):
+        return jsonify({'error': 'Missing required parameters'}), 400
     # Create DataFrame from the incoming text
     df = pd.DataFrame({'comment': [comment_text]})
     df['comment'] = df['comment'].apply(clean_text)
